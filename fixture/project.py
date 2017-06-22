@@ -34,7 +34,7 @@ class ProjectHelper:
             wd.find_element_by_css_selector('input[type="submit"]').click()
         wd.find_element_by_css_selector("a[href*='manage_proj_page.php']").click()
 
-    def get_project_list(self):
+    def get_list(self):
         wd = self.app.wd
         self.app.open_home_page()
         projects = []
@@ -43,3 +43,10 @@ class ProjectHelper:
             text = element.text
             projects.append(Project(name=text))
         return list(projects)
+
+    def delete_project_by_name(self, project):
+        wd = self.app.wd
+        self.open_project_page()
+        wd.find_element_by_link_text(project.name).click()
+        wd.find_element_by_css_selector('input[value="Delete Project"]').click()
+        wd.find_element_by_css_selector('input[value="Delete Project"]').click()
