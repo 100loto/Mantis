@@ -6,7 +6,7 @@ class Project:
         self.description = description
 
     def __repr__(self):
-        return "%s" % (self.name)
+        return "%s:%s" % (self.name, self.description)
 
     def __eq__(self, other):
         return self.name == other.name
