@@ -6,7 +6,6 @@ from model.project import Project
 
 def test_create_project(app):
     project = Project(name=random_string(10), description=random_string(50))
-    app.session.login("administrator", "root")
     old_project = app.soap.get_list("administrator", "root")
     app.project.create(project)
     new_project = app.soap.get_list("administrator", "root")

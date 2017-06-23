@@ -22,11 +22,11 @@ def load_config(file):
 def app(request):
     global fixture
     browser = request.config.getoption("--browser")
-#    webadmin_config = load_config(request.config.getoption("--target"))['webadmin']
+    webadmin_config = load_config(request.config.getoption("--target"))['webadmin']
     web_config = load_config(request.config.getoption("--target"))['web']
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, base_url=web_config['baseUrl'])
-#    fixture.session.ensure_login(username=webadmin_config['username'], password=webadmin_config['password'])
+    fixture.session.ensure_login(username=webadmin_config['user'], password=webadmin_config['password'])
     return fixture
 
 

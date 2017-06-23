@@ -24,5 +24,6 @@ class SoapHelper:
             for element in projects:
                 projects_list.append(Project(element['name'], element['description']))
             return projects_list
-        except WebFault:
+        except WebFault as ex:
+            print(ex)
             return False
