@@ -3,13 +3,13 @@ import string
 from model.project import Project
 
 
-def test_delete_project(app):
+def test_delete_project(app, soap):
     if len(app.project.get_list()) == 0:
         app.project.create(Project(name=random_string("project_of", 10), description=random_string("description:", 50)))
-    old_projects = app.soap.get_list("administrator", "root")
+    old_projects = soap.get_list()
     project = random.choice(old_projects)
     app.project.delete_project_by_name(project)
-    new_projects = app.soap.get_list("administrator", "root")
+    new_projects = soap.get_list()
     assert len(old_projects) - 1 == len(new_projects)
     old_projects.remove(project)
     assert old_projects == new_projects

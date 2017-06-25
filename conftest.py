@@ -1,5 +1,6 @@
 import pytest
 from fixture.application import Application
+from fixture.soap import SoapFixture
 import json
 import jsonpickle
 import os.path
@@ -29,6 +30,13 @@ def app(request):
     fixture.session.ensure_login(username=webadmin_config['user'], password=webadmin_config['password'])
     return fixture
 
+@pytest.fixture(scope="session")
+def soap(request):
+    soap_config = load_config(request.config.getoption("--target"))['soap']
+    soapfixture = SoapFixture(user=soap_config['user'],
+                              password=soap_config['password'],
+                              soapUrl=soap_config['soapUrl'])
+    return soapfixture
 
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):

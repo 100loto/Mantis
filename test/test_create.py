@@ -4,11 +4,11 @@ import string
 from model.project import Project
 
 
-def test_create_project(app):
+def test_create_project(app, soap):
     project = Project(name=random_string(10), description=random_string(50))
-    old_project = app.soap.get_list("administrator", "root")
+    old_project = soap.get_list()
     app.project.create(project)
-    new_project = app.soap.get_list("administrator", "root")
+    new_project = soap.get_list()
     assert len(new_project) == len(old_project) + 1
     old_project.append(project)
     assert sorted(old_project, key=Project.by_name) == sorted(new_project, key=Project.by_name)
